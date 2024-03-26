@@ -1,9 +1,13 @@
 use std::thread::sleep;
 use std::time::Duration;
+use std::fs::File;
+use std::io::Write;
+use std::path::Path;
 use procfs::process::Process;
 use crate::config::Config;
 use crate::cpu_measure::CpuMeasure;
 use crate::memory_measure::MemoryMeasure;
+use crate::consts::constants;
 
 pub struct ProcessInfo {
     pub pid: i32,
@@ -42,18 +46,29 @@ impl ProcessInfo {
                     }
                     let new_cpu_time = (stat.utime + stat.stime) / tps;
                     let cpu_percentage = (new_cpu_time - old_cpu_time) as f64 * 100.0 / measure_time as f64;
-                    let new_cpu_measure = CpuMeasure::new(measure_time, cpu_percentage);
-                    self.cpu_measures.push(new_cpu_measure);
+                    if !cpu_percentage.is_nan() { // First result will always be NaN
+                        let new_cpu_measure = CpuMeasure::new(measure_time, cpu_percentage);
+                        self.cpu_measures.push(new_cpu_measure);
+                    }
 
                     // Memory
                     let memory = stat.rss * page_size; // Bytes
                     let new_memory_measure = MemoryMeasure::new(measure_time, memory);
                     self.memory_measures.push(new_memory_measure);
-                    if self.is_debug_mode {
+                    if self.is_debug_mode && !cpu_percentage.is_nan() {
                         println!("[{}] Time: {} CPU: {}%, Mem: {}", self.pid, measure_time, cpu_percentage, memory);
                     }
                     sleep(sleep_duration);
                     measure_time += self.config.measure_interval;
+                }
+
+                let write_result = self.save_results();
+
+                match write_result {
+                    Ok(()) => {}
+                    Err(e) => {
+                        panic!("Could not write output files! {}", e);
+                    }
                 }
             }
             Err(e) => {
@@ -62,7 +77,26 @@ impl ProcessInfo {
         }
     }
 
-    pub fn save_results(&self) {
+    pub fn save_results(&self) -> std::io::Result<()> {
+        let cpu_file_path = Path::new(self.output_folder.as_str()).join(self.pid.to_string() + constants::CPU_MEASURES_SUFFIX);
+        let mem_file_path = Path::new(self.output_folder.as_str()).join(self.pid.to_string() + constants::MEMORY_MEASURES_SUFFIX);
+        let cpu_file_name = cpu_file_path.to_str().unwrap();
+        let mem_file_name = mem_file_path.to_str().unwrap();
 
+        let mut cpu_file = File::create(cpu_file_name)?;
+
+        writeln!(&mut cpu_file, "Time;Percentage")?;
+        for cpu_measure in self.cpu_measures.iter() {
+            writeln!(&mut cpu_file, "{};{}", cpu_measure.time_seconds, cpu_measure.percentage)?;
+        }
+
+        let mut mem_file = File::create(mem_file_name)?;
+
+        writeln!(&mut mem_file, "Time;Memory")?;
+        for mem_measure in self.memory_measures.iter() {
+            writeln!(&mut mem_file, "{};{}", mem_measure.time_seconds, mem_measure.quantity)?;
+        }
+
+        Ok(())
     }
 }

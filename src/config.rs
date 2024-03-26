@@ -24,7 +24,7 @@ impl Config {
 
     pub fn default() -> Self {
         let c = Config {
-            measure_interval: 5,
+            measure_interval: 3,
             cpu: ConfigCpu { measure_cpu: true },
             memory: ConfigMemory { measure_memory: true, memory_units: "MB".to_string() },
             command: "".to_string(),
