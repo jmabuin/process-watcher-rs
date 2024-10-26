@@ -1,15 +1,12 @@
 mod cpu_measure;
 mod process_info;
-mod config;
-mod config_cpu;
-mod config_memory;
-mod config_tests;
+mod configuration;
 mod memory_measure;
 mod process_info_tests;
 mod consts;
 
 use clap::Parser;
-use crate::config::Config;
+use crate::configuration::config::Config;
 use crate::process_info::ProcessInfo;
 
 /// Simple program to greet a person

@@ -1,8 +1,8 @@
 #[cfg(test)]
 mod config_tests {
-    use crate::config::Config;
-    use crate::config_cpu::ConfigCpu;
-    use crate::config_memory::ConfigMemory;
+    use crate::configuration::config::Config;
+    use crate::configuration::config_cpu::ConfigCpu;
+    use crate::configuration::config_memory::ConfigMemory;
     use crate::cpu_measure::CpuMeasure;
 // Note this useful idiom: importing names from outer (for mod tests) scope.
     //use super::*;

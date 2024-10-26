@@ -4,7 +4,7 @@ use std::fs::File;
 use std::io::Write;
 use std::path::Path;
 use procfs::process::Process;
-use crate::config::Config;
+use crate::configuration::config::Config;
 use crate::cpu_measure::CpuMeasure;
 use crate::memory_measure::MemoryMeasure;
 use crate::consts::constants;

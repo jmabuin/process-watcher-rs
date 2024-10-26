@@ -1,9 +1,9 @@
 
 #[cfg(test)]
 mod process_info_tests {
-    use crate::config::Config;
-    use crate::config_cpu::ConfigCpu;
-    use crate::config_memory::ConfigMemory;
+    use crate::configuration::config::Config;
+    use crate::configuration::config_cpu::ConfigCpu;
+    use crate::configuration::config_memory::ConfigMemory;
     use crate::cpu_measure::CpuMeasure;
     use crate::process_info::ProcessInfo;
 // Note this useful idiom: importing names from outer (for mod tests) scope.

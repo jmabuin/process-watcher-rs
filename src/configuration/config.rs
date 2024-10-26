@@ -1,8 +1,8 @@
 use std::error::Error;
 use std::fs::File;
 use std::io::{BufReader};
-use crate::config_cpu::ConfigCpu;
-use crate::config_memory::ConfigMemory;
+use crate::configuration::config_cpu::ConfigCpu;
+use crate::configuration::config_memory::ConfigMemory;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
