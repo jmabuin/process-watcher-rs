@@ -7,7 +7,7 @@ use procfs::process::Process;
 use crate::configuration::config::Config;
 use crate::cpu_measure::CpuMeasure;
 use crate::memory_measure::MemoryMeasure;
-use crate::consts::constants;
+use crate::common::consts::constants;
 
 pub struct ProcessInfo {
     pub pid: i32,

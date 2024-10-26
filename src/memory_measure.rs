@@ -1,3 +1,4 @@
+/// This struct represents each one of the measures for the Memory
 pub struct MemoryMeasure {
     pub time_seconds: f64,
     pub quantity: u64

@@ -1,4 +1,3 @@
-
 /// This struct represents each one of the measures for the CPU
 pub struct CpuMeasure {
     pub time_seconds: f64,

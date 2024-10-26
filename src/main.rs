@@ -3,7 +3,7 @@ mod process_info;
 mod configuration;
 mod memory_measure;
 mod process_info_tests;
-mod consts;
+mod common;
 
 use clap::Parser;
 use crate::configuration::config::Config;
