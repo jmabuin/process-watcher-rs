@@ -27,13 +27,13 @@ impl ProcessInfo {
 
     pub fn run(&mut self) {
         let p = Process::new(self.pid);
-        let sleep_duration = Duration::new(self.config.measure_interval, 0);
+        let sleep_duration = Duration::from_secs_f64(self.config.measure_interval);
         let tps = procfs::ticks_per_second();
         let page_size = procfs::page_size();
 
         match p {
             Ok(process) => {
-                let mut measure_time: u64 = 0;
+                let mut measure_time: f64 = 0.0;
                 let mut old_cpu_time: u64 = 0;
 
                 while process.is_alive() {
@@ -45,7 +45,7 @@ impl ProcessInfo {
                         old_cpu_time = (stat.utime + stat.stime) / tps;
                     }
                     let new_cpu_time = (stat.utime + stat.stime) / tps;
-                    let cpu_percentage = (new_cpu_time - old_cpu_time) as f64 * 100.0 / measure_time as f64;
+                    let cpu_percentage = (new_cpu_time - old_cpu_time) as f64 * 100.0 / measure_time;
                     if !cpu_percentage.is_nan() { // First result will always be NaN
                         let new_cpu_measure = CpuMeasure::new(measure_time, cpu_percentage);
                         self.cpu_measures.push(new_cpu_measure);

@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct Config {
-    pub measure_interval: u64,
+    pub measure_interval: f64,
     pub cpu: ConfigCpu,
     pub memory: ConfigMemory,
     pub command: String,
@@ -24,7 +24,7 @@ impl Config {
 
     pub fn default() -> Self {
         let c = Config {
-            measure_interval: 3,
+            measure_interval: 3.0,
             cpu: ConfigCpu { measure_cpu: true },
             memory: ConfigMemory { measure_memory: true, memory_units: "MB".to_string() },
             command: "".to_string(),

@@ -1,5 +1,5 @@
 {
-  "measure_interval": 5,
+  "measure_interval": 5.0,
   "cpu": {
     "measure_cpu": true
   },

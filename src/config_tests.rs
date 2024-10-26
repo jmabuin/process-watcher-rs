@@ -17,7 +17,7 @@ mod config_tests {
             Ok(c) => {
                 assert_eq!(c.command, String::from("/opt/google/chrome/chrome"));
                 assert_eq!(c.cpu.measure_cpu, true);
-                assert_eq!(c.measure_interval, 5);
+                assert_eq!(c.measure_interval, 5.0);
                 assert_eq!(c.memory.measure_memory, true);
                 assert_eq!(c.memory.memory_units, String::from("MB"));
             }
@@ -37,7 +37,7 @@ mod config_tests {
         };
 
         let c = Config {
-            measure_interval: 2,
+            measure_interval: 2.0,
             cpu: cpu_measure_config,
             memory: memory_measure_config,
             command: String::from("/usr/bin/ls"),
@@ -45,15 +45,15 @@ mod config_tests {
 
         assert_eq!(c.command, String::from("/usr/bin/ls"));
         assert_eq!(c.cpu.measure_cpu, true);
-        assert_eq!(c.measure_interval, 2);
+        assert_eq!(c.measure_interval, 2.0);
         assert_eq!(c.memory.measure_memory, false);
         assert_eq!(c.memory.memory_units, String::from("KB"));
     }
 
     #[test]
     fn test_create_cpu_measure() {
-        let cpu_measure = CpuMeasure::new(324, 34.67);
-        assert_eq!(cpu_measure.time_seconds, 324);
+        let cpu_measure = CpuMeasure::new(324.0, 34.67);
+        assert_eq!(cpu_measure.time_seconds, 324.0);
         assert_eq!(cpu_measure.percentage, 34.67);
     }
 }
