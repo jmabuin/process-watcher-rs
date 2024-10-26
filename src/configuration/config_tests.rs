@@ -3,7 +3,7 @@ mod config_tests {
     use crate::configuration::config::Config;
     use crate::configuration::config_cpu::ConfigCpu;
     use crate::configuration::config_memory::ConfigMemory;
-    use crate::cpu_measure::CpuMeasure;
+    use crate::measures::cpu_measure::CpuMeasure;
 // Note this useful idiom: importing names from outer (for mod tests) scope.
     //use super::*;
 

@@ -1,7 +1,6 @@
-mod cpu_measure;
 mod process_info;
 mod configuration;
-mod memory_measure;
+mod measures;
 mod process_info_tests;
 mod common;
 

@@ -5,8 +5,8 @@ use std::io::Write;
 use std::path::Path;
 use procfs::process::Process;
 use crate::configuration::config::Config;
-use crate::cpu_measure::CpuMeasure;
-use crate::memory_measure::MemoryMeasure;
+use crate::measures::cpu_measure::CpuMeasure;
+use crate::measures::memory_measure::MemoryMeasure;
 use crate::common::consts::constants;
 
 pub struct ProcessInfo {
