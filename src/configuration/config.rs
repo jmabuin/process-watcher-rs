@@ -10,7 +10,7 @@ pub struct Config {
     pub measure_interval: f64,
     pub cpu: ConfigCpu,
     pub memory: ConfigMemory,
-    pub command: String,
+    pub command: Option<String>,
 }
 
 
@@ -27,7 +27,7 @@ impl Config {
             measure_interval: 3.0,
             cpu: ConfigCpu { measure_cpu: true },
             memory: ConfigMemory { measure_memory: true, memory_units: "MB".to_string() },
-            command: "".to_string(),
+            command: Some("".to_string()),
         };
 
         c
@@ -37,6 +37,10 @@ impl Config {
         println!("Measure interval: {}", self.measure_interval);
         self.cpu.print();
         self.memory.print();
-        println!("Command: {}", self.command);
+        match &self.command {
+            Some(cmd) => {println!("Command: {}", cmd);}
+            None => {}
+        }
+
     }
 }
