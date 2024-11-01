@@ -7,6 +7,8 @@ mod common;
 use clap::Parser;
 use crate::configuration::config::Config;
 use crate::process_info::ProcessInfo;
+use std::process::Command;
+
 
 /// Simple program to greet a person
 #[derive(Parser, Debug)]
@@ -56,5 +58,22 @@ fn main() {
         });
 
         handler_process_info.join().unwrap();
+    } else {
+        match c.command.clone() {
+            Some(command) => {
+                let command_parts = command.split_whitespace().collect::<Vec<&str>>();
+                let trigger_command = Command::new(command_parts[0])
+                    .args(command_parts[1..].iter()).spawn().unwrap();
+
+                let mut process_info = ProcessInfo::new(trigger_command.id() as i32, args.debug, args.output, c);
+                let handler_process_info = std::thread::spawn(move|| {
+                    process_info.run();
+                });
+
+                handler_process_info.join().unwrap();
+            }
+            None => {println!("No command set in Configuration. Bye!");}
+        }
+
     }
 }
