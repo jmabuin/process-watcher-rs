@@ -1,0 +1,11 @@
+{
+  "measure_interval": 5.0,
+  "cpu": {
+    "measure_cpu": true
+  },
+  "memory": {
+    "measure_memory": true,
+    "memory_units": "MB"
+  },
+  "command": "/opt/google/chrome/chrome"
+}
