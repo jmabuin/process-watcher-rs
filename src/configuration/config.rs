@@ -5,7 +5,7 @@ use crate::configuration::config_cpu::ConfigCpu;
 use crate::configuration::config_memory::ConfigMemory;
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Config {
     pub measure_interval: f64,
     pub cpu: ConfigCpu,
@@ -31,16 +31,5 @@ impl Config {
         };
 
         c
-    }
-
-    pub fn print(&self) {
-        println!("Measure interval: {}", self.measure_interval);
-        self.cpu.print();
-        self.memory.print();
-        match &self.command {
-            Some(cmd) => {println!("Command: {}", cmd);}
-            None => {}
-        }
-
     }
 }

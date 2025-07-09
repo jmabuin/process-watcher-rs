@@ -32,23 +32,14 @@ struct Args {
     output: String,
 }
 
-fn print_args(args: &Args) {
-    println!("PID {}", args.pid);
-    println!("Configuration file {}", args.configuration);
-    println!("Debug mode {}", args.debug);
-    println!("Output {}", args.output);
-}
-
 fn main() {
 
     let args = Args::parse();
-    println!("===== INPUT ARGS =====");
-    print_args(&args);
+    println!("{:#?}", args);
 
     let c = if args.configuration == ""  { Config::default() } else { Config::from_json(args.configuration).unwrap() };
 
-    println!("===== CONFIGURATION =====");
-    c.print();
+    println!("{:#?}", c);
 
 
     if args.pid != -1 { // PID takes precedence over command in configuration file

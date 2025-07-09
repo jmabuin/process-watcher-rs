@@ -15,7 +15,7 @@ mod config_tests {
 
         match config_result {
             Ok(c) => {
-                assert_eq!(c.command, String::from("/opt/google/chrome/chrome"));
+                assert_eq!(c.command.unwrap(), String::from("/opt/google/chrome/chrome"));
                 assert_eq!(c.cpu.measure_cpu, true);
                 assert_eq!(c.measure_interval, 5.0);
                 assert_eq!(c.memory.measure_memory, true);
@@ -40,10 +40,10 @@ mod config_tests {
             measure_interval: 2.0,
             cpu: cpu_measure_config,
             memory: memory_measure_config,
-            command: String::from("/usr/bin/ls"),
+            command: Some(String::from("/usr/bin/ls")),
         };
 
-        assert_eq!(c.command, String::from("/usr/bin/ls"));
+        assert_eq!(c.command.unwrap(), String::from("/usr/bin/ls"));
         assert_eq!(c.cpu.measure_cpu, true);
         assert_eq!(c.measure_interval, 2.0);
         assert_eq!(c.memory.measure_memory, false);

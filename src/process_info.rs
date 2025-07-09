@@ -33,6 +33,8 @@ impl ProcessInfo {
 
         match p {
             Ok(process) => {
+                let process_cmd = process.cmdline().expect("Failed to get process cmdline");
+                println!("Starting measures for process: {:?}", process_cmd);
                 let mut measure_time: f64 = 0.0;
                 let mut old_cpu_time: u64 = 0;
 
